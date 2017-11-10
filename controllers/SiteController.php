@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Comments;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -30,12 +31,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
-    }
-
-    public function actionAddComment()
-    {
-        return $this->redirect('/site/update-comment');
+        $models = Comments::find()->where(['!=', 'status', 'draft'])->with('media')->orderBy('id DESC')->all();
+        return $this->render('index', compact('models'));
     }
 
     /**
@@ -43,8 +40,24 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionUpdateComment()
+    public function actionAddReview()
     {
-        return $this->render('add-comment');
+        $session = Yii::$app->session;
+        $model = Comments::findOne($session->get('id'));
+        if(!$session->get('id')) {
+            $model = new Comments();
+            $model->save();
+            $session->set('id', $model->id);
+        }
+        if($model->load(Yii::$app->request->post())) {
+            $model->status = 'active';
+            if(!$model->save()) {
+                $errors = $model->errors;
+                return $this->render('add-review', compact('errors'));
+            }
+            $session->set('id', '');
+            return $this->redirect(['/site/index']);
+        }
+        return $this->render('add-review', compact('model'));
     }
 }

@@ -14,6 +14,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $create_time
  * @property integer $update_time
  * @property string $status
+ * @property string $author
  */
 class Comments extends \yii\db\ActiveRecord
 {
@@ -26,7 +27,7 @@ class Comments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['text', 'status'], 'string'],
+            [['text', 'status', 'author'], 'string'],
             [['create_time', 'update_time'], 'integer'],
             [['site_url'], 'string', 'max' => 255],
         ];
@@ -52,6 +53,7 @@ class Comments extends \yii\db\ActiveRecord
             'create_time' => 'Create Time',
             'update_time' => 'Update Time',
             'status' => 'Status',
+            'author' => 'Author',
         ];
     }
 

@@ -39,7 +39,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Add comment', 'url' => ['/site/about']]
+            ['label' => 'Add review', 'url' => ['/site/add-review']]
         ],
     ]);
     NavBar::end();
