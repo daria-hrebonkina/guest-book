@@ -35,6 +35,12 @@ $this->title = 'New review';
     </div>
     <div class="row">
         <div class="col-lg-12 col-sm-12 col-xs-12">
+            <?= $form->field($imageModel, 'photos[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success pull-right']) ?>
         </div>
     </div>

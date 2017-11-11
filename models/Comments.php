@@ -30,6 +30,7 @@ class Comments extends \yii\db\ActiveRecord
             [['text', 'status', 'author'], 'string'],
             [['create_time', 'update_time'], 'integer'],
             [['site_url'], 'string', 'max' => 255],
+            [['site_url'], 'validateUrl'],
         ];
     }
 
@@ -65,5 +66,10 @@ class Comments extends \yii\db\ActiveRecord
     public function getLikesCount()
     {
         return Likes::find()->where(['comment_id' => 'id'])->count();
+    }
+
+    public function validateUrl()
+    {
+        $this->site_url = !preg_match("~^(?:f|ht)tps?://~i", $this->site_url) ? 'http://' . $this->site_url : $this->site_url;
     }
 }

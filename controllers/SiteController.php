@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\models\Comments;
+use app\models\ImageUploader;
+use yii\web\UploadedFile;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -49,15 +51,20 @@ class SiteController extends Controller
             $model->save();
             $session->set('id', $model->id);
         }
+        $imageModel = new ImageUploader();
+
         if($model->load(Yii::$app->request->post())) {
             $model->status = 'active';
             if(!$model->save()) {
                 $errors = $model->errors;
                 return $this->render('add-review', compact('errors'));
             }
+            $imageModel->photos = UploadedFile::getInstances($imageModel, 'photos');
+            $imageModel->instance = $model;
+            $imageModel->upload();
             $session->set('id', '');
             return $this->redirect(['/site/index']);
         }
-        return $this->render('add-review', compact('model'));
+        return $this->render('add-review', compact('model', 'imageModel'));
     }
 }

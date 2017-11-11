@@ -18,7 +18,7 @@ $this->title = Yii::$app->name;
         <div class="row">
         <?php if(!empty($models)) : ?>
             <?php foreach ($models as $comment) : ?>
-                <div class="col-lg-4">
+                <div class="col-lg-12">
                     <h2><?= $comment->author ? : 'Anonymous'?></h2>
                     <p>Created at: <?=date('h:i:s d.m.Y', $comment->update_time)?></p>
                     <p style="background-color: #fffad5; padding: 10px;"><?=$comment->text ? : ''?></p>
@@ -28,6 +28,19 @@ $this->title = Yii::$app->name;
                     </p>
                     <?php if(!empty($comment->site_url)) : ?>
                         <p>Users website link: <a href="<?=$comment->site_url?>" target="_blank"><?=$comment->site_url?></a></p>
+                    <?php endif; ?>
+                    <?php if(!empty($comment->media)) :?>
+                    <div class="row">
+                        <?php foreach ($comment->media as $picture) :?>
+                        <div class="col-md-4">
+                            <div class="thumbnail">
+                                <a href="/<?=$picture->url?>">
+                                    <img src="/<?=$picture->url?>" style="width:100%">
+                                </a>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>
