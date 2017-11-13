@@ -32,7 +32,7 @@ $this->title = Yii::$app->name;
                         <p>Users website link: <a href="<?=$comment->site_url?>" target="_blank"><?=$comment->site_url?></a></p>
                     <?php endif; ?>
                     <?php if(!empty($comment->media)) :?>
-                        <div id="animated-thumbnails">
+                        <div class="animated-thumbnails">
                         <?php foreach ($comment->media as $picture) :?>
                             <a href="/<?=$picture->url?>">
                                 <img src="/<?=$picture->url?>" style="height:100px">

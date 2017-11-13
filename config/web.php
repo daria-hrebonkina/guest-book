@@ -1,7 +1,13 @@
 <?php
 
-$params = require __DIR__ . '/params.php';
+$params = $params = require __DIR__ . '/params.php';;
 $db = require __DIR__ . '/db.php';
+if(file_exists(__DIR__ . '/params-local.php')) {
+    $params = require __DIR__ . '/params-local.php';
+}
+if(file_exists(__DIR__ . '/db-local.php')) {
+    $db = require __DIR__ . '/db-local.php';
+}
 
 $config = [
     'id' => 'basic',

@@ -21,13 +21,10 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.4/css/lightgallery.css',
-        'css/lightgallery.min.css',
-
     ];
     public $js = [
         'js/lightgallery.min.js',
-        'js/main.js',
-
+        'js/main.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

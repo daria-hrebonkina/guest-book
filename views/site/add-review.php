@@ -9,7 +9,7 @@ $this->title = 'New review';
 ?>
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php $errors ? var_dump($errors) : '' ?>
+    <?php !empty($errors) ? var_dump($errors) : '' ?>
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
         'options' => ['class' => ''],

@@ -2,11 +2,14 @@
  * Created by dasha on 12.11.2017.
  */
 $(document).ready(function(){
-    lightGallery(document.getElementById('animated-thumbnails'), {
-        thumbnail:true,
-        animateThumb: false,
-        showThumbByDefault: false
+    $('.animated-thumbnails').each(function (index, el) {
+        lightGallery(el, {
+            thumbnail:true,
+            animateThumb: false,
+            showThumbByDefault: false
+        });
     });
+
 
     $('.likes').click(function () {
         var data,

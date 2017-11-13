@@ -25,7 +25,7 @@ class ImageUploader extends Model
     public function rules()
     {
         return [
-            [['photos'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg', 'maxFiles' => 100],
+            [['photos'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg', 'maxFiles' => 100],
         ];
     }
 
@@ -33,7 +33,8 @@ class ImageUploader extends Model
     {
         if ($this->validate()) {
             foreach ($this->photos as $file) {
-                $fileName = 'uploads/' . $file->baseName . '.' . $file->extension;
+                $hash = \Yii::$app->security->generateRandomString();
+                $fileName = 'uploads/' . $hash . '.' . $file->extension;
                 $mediaItem = new Media();
                 $mediaItem->comment_id = $this->instance->id;
                 $mediaItem->url = $fileName;
