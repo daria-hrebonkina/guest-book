@@ -18,16 +18,27 @@ $this->title = Yii::$app->name;
         <div class="row">
         <?php if(!empty($models)) : ?>
             <?php foreach ($models as $comment) : ?>
-                <div class="col-lg-4">
+                <div class="col-lg-12">
                     <h2><?= $comment->author ? : 'Anonymous'?></h2>
                     <p>Created at: <?=date('h:i:s d.m.Y', $comment->update_time)?></p>
                     <p style="background-color: #fffad5; padding: 10px;"><?=$comment->text ? : ''?></p>
-                    <p>
-                        <a><img src="/img/like.svg" style="height: 50px;"></a>
-                        <?=!empty($comment->likesCount) ? $comment->likesCount : ''?>
+                    <p class="likes-counter">
+                        <a class="likes" data-review="<?=$comment->id?>">
+                            <span class="glyphicon glyphicon-heart"></span>
+                        </a>
+                        <span class="counter"><?=$comment->likes_counter > 0 ? $comment->likes_counter : ''?></span>
                     </p>
                     <?php if(!empty($comment->site_url)) : ?>
                         <p>Users website link: <a href="<?=$comment->site_url?>" target="_blank"><?=$comment->site_url?></a></p>
+                    <?php endif; ?>
+                    <?php if(!empty($comment->media)) :?>
+                        <div id="animated-thumbnails">
+                        <?php foreach ($comment->media as $picture) :?>
+                            <a href="/<?=$picture->url?>">
+                                <img src="/<?=$picture->url?>" style="height:100px">
+                            </a>
+                        <?php endforeach; ?>
+                        </div>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>
